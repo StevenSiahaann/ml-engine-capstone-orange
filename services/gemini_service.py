@@ -114,8 +114,8 @@ def process_receipt_image(
     if image_bytes is not None:
         try:
             image_pil = Image.open(io.BytesIO(image_bytes))
-            image_pil.verify()  # cepat mendeteksi file corrupt
-            image_pil = Image.open(io.BytesIO(image_bytes))  # reopen untuk pemakaian
+            image_pil.verify()
+            image_pil = Image.open(io.BytesIO(image_bytes))
             logger.debug(f"Gambar terdeteksi: mode={image_pil.mode}, size={image_pil.size}")
         except UnidentifiedImageError:
             logger.warning("Gagal mengenali file gambar (UnidentifiedImageError).")

@@ -1,9 +1,8 @@
 import os
 from math import floor
-from flask import Flask, request, jsonify
-from dotenv import load_dotenv
+from flask import Flask, request, jsonify, g
+from utils.auth_util import *
 
-load_dotenv()
 
 from services.gemini_service import process_receipt_image
 from services.mongo_service import (
@@ -14,7 +13,6 @@ from services.mongo_service import (
 )
 
 app = Flask(__name__)
-
 
 def _parse_amount_to_int_rp(val):
     if val is None:
@@ -95,6 +93,8 @@ def _proportional_split(amount_rp, weights):
     return floored
 
 @app.post("/api/v1/process-receipt")
+@require_auth
+@require_scope("FULL_ACCESS")
 def process_receipt_endpoint():
     image_file = request.files.get("receipt_image")
     extra_text = request.form.get("extra_text")
@@ -150,6 +150,8 @@ def process_receipt_endpoint():
 
 
 @app.post("/api/v1/submit-split")
+@require_auth
+@require_scope("FULL_ACCESS")
 def submit_split():
     payload = request.get_json(silent=True) or {}
     bill_id = payload.get("bill_id")
@@ -251,6 +253,8 @@ def submit_split():
         }
     })), 201
 @app.post("/api/v1/split-info")
+@require_auth
+@require_scope("FULL_ACCESS")
 def split_info():
 
     payload = request.get_json(silent=True) or {}
@@ -286,6 +290,8 @@ def split_info():
 
 
 @app.get("/api/v1/bill/<bill_id>")
+@require_auth
+@require_scope("FULL_ACCESS")
 def get_bill(bill_id):
 
     doc_res = find_bill_by_id(bill_id)
