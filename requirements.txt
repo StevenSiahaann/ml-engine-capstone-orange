@@ -6,3 +6,6 @@ Pillow
 cryptography
 requests
 python-jose
+uvicorn
+kafka-python
+google-cloud-storage

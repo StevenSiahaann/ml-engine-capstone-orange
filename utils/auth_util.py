@@ -128,3 +128,11 @@ def require_scope(*required_scopes: str):
             return func(*args, **kwargs)
         return wrapper
     return decorator
+
+def get_user_id_from_token() -> Optional[Any]:
+    claims = getattr(g, "jwt_claims", None)
+    
+    if claims:
+        user_id = claims.get("sub") or claims.get("user_id") or claims.get("username")
+        return user_id
+    return None

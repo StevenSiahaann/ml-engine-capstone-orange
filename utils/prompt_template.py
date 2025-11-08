@@ -32,5 +32,5 @@ Aturan Ekstraksi:
     - **jenis_wallet**: Jika pembayaran QRIS atau e-wallet, coba identifikasi namanya (misal: 'GoPay', 'OVO', 'Dana'). Jika tidak ada, isi null.
     - **nomor_rekening_atau_id**: Jika ada nomor rekening atau ID transaksi yang relevan, masukkan di sini. Jika tidak ada, isi null.
 
-Jika ada informasi yang tidak ditemukan pada struk, isi nilainya dengan null untuk string, dan 0 untuk angka.
+Jika ada informasi yang tidak ditemukan pada struk, isi nilainya dengan null untuk string, dan 0 untuk angka. Jika ada mata uang yang bukan rupiah silahkan konversi mengikuti nilai tukar terakhir ke rupiah.
 """
